@@ -1,6 +1,6 @@
 /*
   Arduino Starter Kit Project:
-  Building Automation
+  Building Automation System Simulation
 
   Parts required:
   - 1x TMP36 temperature sensor
@@ -8,7 +8,6 @@
   - 1x green LED
   - 1x blue LED
   - 4x 220 ohm resistors
-  - 220 ohm resistor
   - 1x 10 kilohm resistor
   - 1x 10 kilohm potentiometer
   - 1x 16x2 LCD screen
@@ -17,13 +16,13 @@
   - 1x IRF520 MOSFET
   - 1x 1N4007 diode
   - 1x 9V DC motor
-  - jumperwires
+  - Jumperwires
 
   Credits to Scott Fitzgerald for sample code in Project 3, 9, & 11
   
   Revision 7 AUG 2023
 
- The source code is under MIT license.
+ The source code is licensed under the MIT license.
 */
 
 // include the library code:
@@ -31,15 +30,6 @@
 
 // initialize the library with the numbers of the interface pins
 LiquidCrystal lcd(13, 6, 10, 8, 9, 7);
-
-// variable to hold the value of the switchPin
-//int switchState1 = 0;
-
-// variable to hold previous value of the switchpin
-//int prevSwitchState = 0;
-
-// a variable to choose which reply from the crystal ball
-//int reply;
 
 // named constant for the pin the sensor is connected to
 const int sensorPin = A0;
@@ -77,38 +67,19 @@ void setup() {
   // print to the second line
   lcd.print("FPGA BMS demo!");
   delay(2000);
-  // clean up the screen before printing a new reply
-  //lcd.clear();
-  //lcd.print("Building Automation demo!");
-  
+
   // open a serial connection to display values
   Serial.begin(9600);
-  
-
-  
+    
   // set the LED pins as outputs
   // the for() loop saves some extra coding
   for (int pinNumber = 2; pinNumber < 4; pinNumber++) {
     pinMode(pinNumber, OUTPUT);
     digitalWrite(pinNumber, LOW);
-  }
-}
+  }//for
+}//setup()
 
 void loop() {
-  
-  // system status indicator
-  //digitalWrite(LED_BUILTIN, HIGH);   // turn the LED on (HIGH is the voltage level)
-  //delay(500);                       // wait for .5 second
-  //digitalWrite(LED_BUILTIN, LOW);    // turn the LED off by making the voltage LOW
-  //delay(1000);                       // wait for a second
- 
-
-  
-  lcd.clear();
-  lcd.setCursor(0, 0);
-  lcd.print("Monitoring");
-  lcd.setCursor(0, 1);
-  lcd.print("building status");  
   
   // read the value on AnalogIn pin 0 and store it in a variable
   int sensorVal = analogRead(sensorPin);
@@ -132,14 +103,23 @@ void loop() {
   float temperature = (voltage - .5) * 100;
   Serial.println(temperature);
 
+  for (int counter = 1; counter < 10; counter++) {
+  lcd.clear();
+  lcd.setCursor(0, 0);
+  lcd.print("Monitoring");
+  lcd.setCursor(0, 1);
+  lcd.print("building status");  
+  delay(5000);
+  
   lcd.clear();
   lcd.setCursor(0, 0);
   lcd.print("Temperature is:");
   lcd.setCursor(0, 1);
   lcd.println(temperature);// TMP sensor might need calibration, estimating offset 
   lcd.print("C");
-  
-  //delay(10000);
+  delay(5000);
+
+  }//for
   
   // if the current temperature is lower than the baseline turn on the green LED, pin2 hi
   if (temperature <= baselineTemp) {
@@ -154,11 +134,7 @@ void loop() {
     switchState = HIGH;
   } 
  
-    // read the state of the switch value:
-  //switchState = digitalRead(switchPin);
-  
-  
-  // check if the switch is pressed.
+    // check the state of the switch value:
   if (switchState == HIGH) {     
     // turn motor on:    
     digitalWrite(motorPin, HIGH);  
@@ -170,8 +146,8 @@ void loop() {
   
   // day-night illumination indicator
   digitalWrite(dayNightLightPin, HIGH); // turn the LED on at night
-  delay(10000);                         // wait for 60 second
+  delay(15000);                         // wait for 60 second
   digitalWrite(dayNightLightPin, LOW);  // turn the LED off during the day
-  delay(10000);
+  delay(15000);
   
 }//loop()
