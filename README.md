@@ -1,1 +1,3 @@
-# AutomateBMS
+# AutomateBAS
+## Open-Source and Democratization of Building Automation Systems
+Building Automation System (BAS) is a type of Operational Technology (OT) controlling HVAC (Heating, Ventilation, and Air Conditioning), lighting systems, and other building-related functions. BAS can reduce energy costs and automate time-consuming maintenance tasks so they can happen without any human intervention. Like HVAC and plumbing systems, BAS has a finite lifespan that varies based on quality, use, and care, and it will eventually need to be replaced, repaired, or upgraded over time. Aging BAS can produce many problems, including heating and cooling issues, nuisance alarms, energy inefficiencies, and security-related implications. 
